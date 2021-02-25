@@ -18,6 +18,26 @@ public class Springer extends Figur implements Serializable{
 	@Override
 	public boolean CanMove(Feld[][] board, Feld ziel) {
 		// TODO Auto-generated method stub
+		int x_difference = ziel.getPosX() - this.posX;
+		int y_difference = ziel.getPosY() - this.posY;
+
+		if (!validMove(x_difference, y_difference)) {
+			return false;
+		}
+		else if (!board[ziel.getPosY()][ziel.getPosX()].hasFigur()) {
+			return true;
+		} else if (board[ziel.getPosY()][ziel.getPosX()].getFigur().getFarbe() != this.getFarbe()) {
+			return true;
+		}
+		return false;
+	}
+	public boolean validMove (int x_difference, int y_difference) {
+		if (Math.abs(x_difference) == 2 && Math.abs(y_difference) == 1) {
+			return true;
+		}
+		if (Math.abs(x_difference) == 1 && Math.abs(y_difference) == 2) {
+			return true;
+		}
 		return false;
 	}
 }
