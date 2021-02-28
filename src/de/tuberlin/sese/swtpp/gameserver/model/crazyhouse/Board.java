@@ -199,7 +199,12 @@ class Board implements Serializable {
 			if(SpielerFigur == null)
 				return false;
 		}			
-		
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				board[i][j].setPosX(i);
+				board[i][j].setPosY(j);
+			}
+		}
 		Position startPos = String2Pos(moves[0]);
 		Position zielPos = String2Pos(moves[1]);
 		
@@ -218,6 +223,10 @@ class Board implements Serializable {
 		//danach wird die spielerfigur auf das feld gesetzt und die werte aktualisiert
 		//danach muss der
 		//
+		SpielerFigur.setPosX(startPos.getX());
+		SpielerFigur.setPosY(zielPos.getY());
+		board[zielPos.getX()][zielPos.getY()].setFigur(SpielerFigur);
+		board[startPos.getX()][startPos.getY()].setFigur(null);
 		return true;
 	}
 	

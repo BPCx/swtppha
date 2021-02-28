@@ -31,8 +31,8 @@ public class Bauer extends Figur implements Serializable {
 	}
 
 
-	public boolean validMove(Feld[][] board, Feld ziel, int x_difference, int y_difference) {
-		if (y_difference == 1) {
+	public boolean validMove(Feld[][] board, Feld ziel, int y_difference, int x_difference) { 
+		if ((y_difference == -1 && this.Farbe.name().equals("Weiss")) || (y_difference == 1 && this.Farbe.name().equals("Schwarz"))) {
 			if (Math.abs(x_difference) == 1) { //Attack 1 step to the right or left
 				if (board[ziel.getPosY()][ziel.getPosX()].getFigur().getFarbe() != this.getFarbe()) {
 					return true;
@@ -40,16 +40,19 @@ public class Bauer extends Figur implements Serializable {
 				return false;
 			}
 			if (x_difference == 0) { //Move 1 step forward
-				if (!board[ziel.getPosY()][ziel.getPosX()].hasFigur()) {
+				if (!board[ziel.getPosX()][ziel.getPosY()].hasFigur()) {
 					return true;
 				}
 				return false;
 			}
 		}
-		if (y_difference == 2 && x_difference == 0 && isStartPosition()) { //Move 2 steps forward
-			if (!board[ziel.getPosY()+1][ziel.getPosX()].hasFigur() && !board[ziel.getPosY()+2][ziel.getPosX()].hasFigur()) {
+		if ((y_difference == 2 && x_difference == 0 && isStartPosition() && this.Farbe.name().equals("Schwarz"))) { //Move 2 steps forward
+			if (!board[ziel.getPosX()+1][ziel.getPosY()].hasFigur() && !board[ziel.getPosY()+2][ziel.getPosX()].hasFigur()) {
 				return true;
 			}
+		} else 	if ((y_difference == -2 && x_difference == 0 && isStartPosition() && this.Farbe.name().equals("Weiss")))
+		{
+			return true;
 		}
 		return false;
 	}

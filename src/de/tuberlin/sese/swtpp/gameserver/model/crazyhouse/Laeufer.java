@@ -55,5 +55,4 @@ public class Laeufer extends Figur implements Serializable {
 		}
 		 return false;
 	}
-	public boolean
 }
