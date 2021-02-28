@@ -223,7 +223,7 @@ class Board implements Serializable {
 		//danach wird die spielerfigur auf das feld gesetzt und die werte aktualisiert
 		//danach muss der
 		//
-		SpielerFigur.setPosX(startPos.getX());
+		SpielerFigur.setPosX(zielPos.getX());
 		SpielerFigur.setPosY(zielPos.getY());
 		board[zielPos.getX()][zielPos.getY()].setFigur(SpielerFigur);
 		board[startPos.getX()][startPos.getY()].setFigur(null);

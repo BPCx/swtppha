@@ -34,24 +34,27 @@ public class Bauer extends Figur implements Serializable {
 	public boolean validMove(Feld[][] board, Feld ziel, int y_difference, int x_difference) { 
 		if ((y_difference == -1 && this.Farbe.name().equals("Weiss")) || (y_difference == 1 && this.Farbe.name().equals("Schwarz"))) {
 			if (Math.abs(x_difference) == 1) { //Attack 1 step to the right or left
-				if (board[ziel.getPosY()][ziel.getPosX()].getFigur().getFarbe() != this.getFarbe()) {
+				if (!board[ziel.getPosX()][ziel.getPosY()].getFigur().getFarbe().name().equals(this.getFarbe().name())) {
+					if(this.startPosition) this.setStartPosition(false);
 					return true;
 				}
 				return false;
 			}
 			if (x_difference == 0) { //Move 1 step forward
 				if (!board[ziel.getPosX()][ziel.getPosY()].hasFigur()) {
+					if(this.startPosition) this.setStartPosition(false);
 					return true;
 				}
 				return false;
 			}
 		}
 		if ((y_difference == 2 && x_difference == 0 && isStartPosition() && this.Farbe.name().equals("Schwarz"))) { //Move 2 steps forward
-			if (!board[ziel.getPosX()+1][ziel.getPosY()].hasFigur() && !board[ziel.getPosY()+2][ziel.getPosX()].hasFigur()) {
+			if (!board[ziel.getPosX()+1][ziel.getPosY()].hasFigur() && !board[ziel.getPosX()+2][ziel.getPosY()].hasFigur()) {
+				if(this.startPosition) this.setStartPosition(false);
 				return true;
 			}
-		} else 	if ((y_difference == -2 && x_difference == 0 && isStartPosition() && this.Farbe.name().equals("Weiss")))
-		{
+		} else 	if ((y_difference == -2 && x_difference == 0 && isStartPosition() && this.Farbe.name().equals("Weiss"))) {
+			this.setStartPosition(false);
 			return true;
 		}
 		return false;
