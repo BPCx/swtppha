@@ -25,10 +25,9 @@ public class Koenig extends Figur implements Serializable {
 		if (!validMove(x_difference, y_difference)) {
 			return false;
 		}
-		if (!board[ziel.getPosY()][ziel.getPosX()].hasFigur()) {
+		if (!board[ziel.getPosX()][ziel.getPosY()].hasFigur()) {
 			return true;
-		}
-		if (board[ziel.getPosY()][ziel.getPosX()].getFigur().getFarbe() != this.getFarbe()) {
+		} else if (!board[ziel.getPosX()][ziel.getPosY()].getFigur().getFarbe().name().equals(this.getFarbe().name())) {
 			return true;
 		}
 		return false;

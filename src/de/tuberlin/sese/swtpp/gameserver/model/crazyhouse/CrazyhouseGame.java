@@ -233,8 +233,12 @@ public class CrazyhouseGame extends Game implements Serializable{
 		if(!moveString.matches("(([kqbnrpKQBNRP])|([a-h][1-8]))-[a-h][1-8]"))
 			return false;
 		//zug durchführen
+		String playerColor = "Weiss";
+		if (player == blackPlayer) {
+			playerColor = "Schwarz";
+		}
 		Move move = new Move(moveString, board.getBoardString(), player);
-		boolean moveValid =  board.tryMove(moveString);
+		boolean moveValid =  board.tryMove(moveString, playerColor);
 		if(moveValid) {
 			this.setNextPlayer(player == whitePlayer ? blackPlayer : whitePlayer);
 			this.history.add(move);

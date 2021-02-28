@@ -24,9 +24,10 @@ public class Springer extends Figur implements Serializable{
 		if (!validMove(x_difference, y_difference)) {
 			return false;
 		}
-		else if (!board[ziel.getPosY()][ziel.getPosX()].hasFigur()) {
+		else if (!board[ziel.getPosX()][ziel.getPosY()].hasFigur()) {
 			return true;
-		} else if (board[ziel.getPosY()][ziel.getPosX()].getFigur().getFarbe() != this.getFarbe()) {
+		} else if (!board[ziel.getPosX()][ziel.getPosY()].getFigur().getFarbe().name().equals(this.getFarbe().name())) {
+			
 			return true;
 		}
 		return false;

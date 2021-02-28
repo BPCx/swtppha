@@ -1,8 +1,6 @@
 package de.tuberlin.sese.swtpp.gameserver.model.crazyhouse;
 
-import javax.xml.validation.Validator;
 import java.io.Serializable;
-
 
 public class Laeufer extends Figur implements Serializable {
 
@@ -34,8 +32,8 @@ public class Laeufer extends Figur implements Serializable {
 				y_ascending = 1;
 			}
 			for (int x = 1; x <= Math.abs(x_difference); x++) { //Moves through the diagonal towards the target position and checks if anything is in the way
-				if (board[this.posY + y_ascending*x][this.posX + x_ascending*x].hasFigur()) {
-					if(x == Math.abs(x_difference) && board[this.posY+y_ascending*x][this.posX+x_ascending*x].getFigur().getFarbe() != this.getFarbe()) {
+				if (board[this.posX + x_ascending*x][this.posY + y_ascending*x].hasFigur()) {
+					if(x == Math.abs(x_difference) && !board[this.posX+x_ascending*x][this.posY+y_ascending*x].getFigur().getFarbe().name().equals(this.getFarbe().name())) {
 						return true; // return true if the target position has an opponent's piece.
 					} else {
 						return false; // return false if our piece is in the target position or any piece is along the way.

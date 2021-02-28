@@ -133,7 +133,6 @@ class Board implements Serializable {
 	private String erstelleBoardString() {
 		String boardString = "";
 		int anzahlFelderLeer = 0;
-		//TODO
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				if(!board[i][j].hasFigur()) {
@@ -187,17 +186,14 @@ class Board implements Serializable {
 		return figur;
 	}
 	
-	public boolean tryMove(String move) {
+	public boolean tryMove(String move, String playerColor) {
 		String[] moves = move.split("-");
-		
-		//checken ob der erste teil Feld oder Pocket ist
-		//if(!moveString.matches("(([kqbnrpKQBNRP])|([a-h]))-[a-h][1-8]"))
+
 		Figur SpielerFigur;
 		if(move.matches("[kqbnrpKQBNRP]-[a-h][1-8]")) {
 			String figString = move.substring(0, 1);
 			SpielerFigur = checkFigurInPocket(figString);
-			if(SpielerFigur == null)
-				return false;
+			if(SpielerFigur == null) return false;
 		}			
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
@@ -207,22 +203,17 @@ class Board implements Serializable {
 		}
 		Position startPos = String2Pos(moves[0]);
 		Position zielPos = String2Pos(moves[1]);
-		
 		Feld startFeld = board[startPos.getX()][startPos.getY()];
 		Feld zielFeld = board[zielPos.getX()][zielPos.getY()];
-		if(!startFeld.hasFigur())
-			return false;
+		if(!board[startPos.getX()][startPos.getY()].getFigur().getFarbe().name().equals(playerColor)) return false;
+		if(!startFeld.hasFigur()) return false;
 		SpielerFigur = startFeld.getFigur();
 		if(zielFeld.hasFigur())
 			if(!zielFeld.getFigur().CanBeat(SpielerFigur))
 				return false;
 		
-		if(!SpielerFigur.CanMove(board, zielFeld))
-			return false;
-		//wenn zielfeld spielfigur hat wird sie geschlagen
-		//danach wird die spielerfigur auf das feld gesetzt und die werte aktualisiert
-		//danach muss der
-		//
+		if(!SpielerFigur.CanMove(board, zielFeld))return false;
+
 		SpielerFigur.setPosX(zielPos.getX());
 		SpielerFigur.setPosY(zielPos.getY());
 		board[zielPos.getX()][zielPos.getY()].setFigur(SpielerFigur);
